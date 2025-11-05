@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Background + GIF</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    background: url('background.jpg') center center / cover no-repeat fixed;
+    display: grid;
+    place-items: center;
+  }
+  img {
+    max-width: min(60vmin, 600px);
+    width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+  <img src="animation.gif" alt="Foreground animation">
+</body>
+</html>
