@@ -3,20 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spinner – sanity check</title>
+<title>Background with Spinner</title>
 <style>
   html, body { height: 100%; margin: 0; }
-  body { background:#333; display:grid; place-items:center; }
-  .spinner{
-    width:100px; height:100px; border-radius:50%;
-    border:8px solid rgba(0,150,255,0.25);
-    border-top-color:#ff9900;
-    animation:spin 1.2s linear infinite;
+  body { background:#333; } /* fallback if image fails */
+
+  .stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
   }
-  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* Full-viewport background image */
+  .bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;            /* fill viewport, keep aspect */
+    object-position: left center; /* left-justified */
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Foreground layer with centered spinner */
+  .fg {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 2;
+  }
+
+  .spinner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 8px solid rgba(0,150,255,0.25); /* blue ring */
+    border-top-color: #ff9900;              /* orange arc */
+    animation: spin 1.2s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
-  <div class="spinner"></div>
+  <div class="stage">
+    <img class="bg" src="background.jpg" alt="" aria-hidden="true" loading="lazy">
+    <div class="fg">
+      <div class="spinner"></div>
+    </div>
+  </div>
 </body>
 </html>
