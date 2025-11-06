@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Background with Spinner and Logo</title>
+<title>Background with Spinner and Static Logo</title>
 <style>
   html, body { height: 100%; margin: 0; }
   body { background:#333; }
@@ -47,14 +47,13 @@
     animation: spin 1.2s linear infinite;
   }
 
-  /* Center logo inside spinner */
-  .spinner img {
+  /* Static logo */
+  .logo {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 55%;             /* adjust size of logo here */
-    height: auto;
-    transform: translate(-50%, -50%);
+    width: 55px; /* adjust size as needed */
+    height: 55px;
+    object-fit: contain;
+    z-index: 3; /* above spinner */
   }
 
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -64,9 +63,8 @@
   <div class="stage">
     <img class="bg" src="background.jpg" alt="" aria-hidden="true" loading="lazy">
     <div class="fg">
-      <div class="spinner">
-        <img src="bb_mid.png" alt="Logo">
-      </div>
+      <div class="spinner"></div>
+      <img class="logo" src="logo.png" alt="Logo">
     </div>
   </div>
 </body>
