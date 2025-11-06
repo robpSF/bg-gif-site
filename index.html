@@ -3,25 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Layered image with foreground GIF</title>
+<title>Background with Spinner</title>
 <style>
-  html, body { height: 100%; margin: 0; }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
   .stage {
     position: relative;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
   }
+
+  /* Background image */
   .bg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;          /* fills viewport, preserves aspect */
-    object-position: left;    /* adjust focal point here */
+    object-fit: cover;
+    object-position: left center; /* left-justified */
     z-index: 1;
-    pointer-events: none;       /* clicks pass through */
+    pointer-events: none;
   }
+
+  /* Foreground container */
   .fg {
     position: absolute;
     inset: 0;
@@ -29,27 +37,20 @@
     place-items: center;
     z-index: 2;
   }
-  .fg img, .fg video {
-    max-width: min(60vmin, 600px);
-    width: 100%;
-    height: auto;
+
+  /* Spinner style */
+  .spinner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 8px solid rgba(0,150,255,0.25);  /* blue base */
+    border-top-color: #ff9900;               /* orange segment */
+    animation: spin 1.2s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
   }
 </style>
 </head>
 <body>
-  <div class="stage">
-    <img class="bg" src="background.jpg" alt="" aria-hidden="true" loading="lazy">
-
-    <div class="fg">
-      <!-- Use GIF, or switch to video for better performance -->
-      <img src="animation.gif" alt="Foreground animation">
-      <!-- Example video replacement:
-      <video autoplay loop muted playsinline>
-        <source src="animation.webm" type="video/webm">
-        <source src="animation.mp4" type="video/mp4">
-      </video>
-      -->
-    </div>
-  </div>
-</body>
-</html>
