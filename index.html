@@ -3,18 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Background + GIF</title>
+<title>Layered image with foreground GIF</title>
 <style>
-  html, body {
-    height: 100%;
-    margin: 0;
+  html, body { height: 100%; margin: 0; }
+  .stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
   }
-  body {
-    background: url('background.jpg') center center / cover no-repeat;
+  .bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;          /* fills viewport, preserves aspect */
+    object-position: center;    /* adjust focal point here */
+    z-index: 1;
+    pointer-events: none;       /* clicks pass through */
+  }
+  .fg {
+    position: absolute;
+    inset: 0;
     display: grid;
     place-items: center;
+    z-index: 2;
   }
-  img {
+  .fg img, .fg video {
     max-width: min(60vmin, 600px);
     width: 100%;
     height: auto;
@@ -22,6 +37,19 @@
 </style>
 </head>
 <body>
-  <img src="animation.gif" alt="Foreground animation">
+  <div class="stage">
+    <img class="bg" src="background.jpg" alt="" aria-hidden="true" loading="lazy">
+
+    <div class="fg">
+      <!-- Use GIF, or switch to video for better performance -->
+      <img src="animation.gif" alt="Foreground animation">
+      <!-- Example video replacement:
+      <video autoplay loop muted playsinline>
+        <source src="animation.webm" type="video/webm">
+        <source src="animation.mp4" type="video/mp4">
+      </video>
+      -->
+    </div>
+  </div>
 </body>
 </html>
